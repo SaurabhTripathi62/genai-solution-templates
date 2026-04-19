@@ -1,0 +1,55 @@
+json_strict:
+  description: "Force strict JSON output — no markdown, no preamble"
+  instruction: |
+    You must respond with valid JSON only.
+    - No markdown code blocks
+    - No explanatory text before or after the JSON
+    - No trailing commas
+    - All strings double-quoted
+    If you cannot answer, return: {"error": "reason"}
+
+json_with_reasoning:
+  description: "JSON output with a reasoning field for transparency"
+  instruction: |
+    Respond in this exact JSON format:
+    {
+      "reasoning": "your step-by-step thinking here",
+      "answer": "your final answer",
+      "confidence": 0.0-1.0,
+      "sources": ["source1", "source2"]
+    }
+
+structured_report:
+  description: "Structured report format for enterprise outputs"
+  instruction: |
+    Respond in this exact JSON format:
+    {
+      "executive_summary": "2-3 sentence summary",
+      "findings": [
+        {"id": 1, "severity": "CRITICAL|HIGH|MEDIUM|LOW|INFO", "description": "...", "recommendation": "..."}
+      ],
+      "metrics": {"key": "value"},
+      "next_steps": ["step1", "step2"],
+      "confidence": 0.0-1.0
+    }
+
+classification:
+  description: "Single-label classification with confidence"
+  instruction: |
+    Classify the input and respond only with JSON:
+    {
+      "label": "chosen_category",
+      "confidence": 0.0-1.0,
+      "reasoning": "one sentence explanation"
+    }
+
+extraction:
+  description: "Named entity / structured data extraction"
+  instruction: |
+    Extract the requested information and return only JSON.
+    For missing fields use null — never guess or infer.
+    {
+      "extracted": {"field1": "value or null", "field2": "value or null"},
+      "completeness": 0.0-1.0,
+      "notes": "any ambiguities or caveats"
+    }
